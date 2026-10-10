@@ -163,26 +163,23 @@ nav a:hover {
     gap: 16px;
 }
 
-/* The title: sized so it can never be wider than the screen.
-   Phones: three stacked, offset lines. */
+/* The title: a two-column grid.
+   Column 1 holds "CODE", column 2 holds "&" and, below it, "CAPTURE".
+   That is what puts CAPTURE right under the &.
+   The size is capped by the screen's width and height, so it always fits. */
 .hero-title {
     margin: 0;
-    font-size: min(calc((100vw - 48px) / 2.8), 17vh);
-    font-size: min(calc((100vw - 48px) / 2.8), 17svh);
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    font-size: min(calc((100vw - 48px) / 4.4), 38vh);
+    font-size: min(calc((100vw - 48px) / 4.4), 38svh);
     line-height: 0.9;
 }
 
-.hero-title span {
-    display: block;
-}
-
-.hero-title span:nth-child(2) {
-    padding-left: 0.6em;
-}
-
-.hero-title span:nth-child(3) {
-    padding-left: 0.1em;
-}
+.t-code    { grid-column: 1; grid-row: 1; }
+.t-amp     { grid-column: 2; grid-row: 1; }
+.t-capture { grid-column: 2; grid-row: 2; }
 
 .hero-bottom {
     display: flex;
@@ -196,25 +193,6 @@ nav a:hover {
     max-width: 34ch;
     margin: 0;
     line-height: 1.5;
-}
-
-/* Desktop and tablet: two staggered lines, "CODE IN" then "CAPTURE" */
-@media (min-width: 800px) {
-    .hero-title {
-        font-size: min(calc((100vw - 48px) / 3.6), 33vh);
-        font-size: min(calc((100vw - 48px) / 3.6), 33svh);
-    }
-
-    .hero-title span:nth-child(1),
-    .hero-title span:nth-child(2) {
-        display: inline;
-        padding-left: 0;
-    }
-
-    .hero-title span:nth-child(3) {
-        display: block;
-        padding-left: 0.9em;
-    }
 }
 
 /* ==========================================================
