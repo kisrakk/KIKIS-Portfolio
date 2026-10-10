@@ -1,0 +1,372 @@
+/* ==========================================================
+   1. VARIABLES: colors and fonts, defined once, reused everywhere
+   ========================================================== */
+:root {
+    /* Pastels */
+    --peach-cream: #ffe8d6;
+    --butter: #fbe8a6;
+    --sea-glass: #bfe3e8;
+    --sage: #cfe0c3;
+    --blush: #f9c6b5;
+
+    /* Vibrant accents */
+    --orange: #ff7a2f;
+    --teal: #118a9a;
+    --fern: #2f8f4e;
+    --sun: #ffb703;
+
+    /* Text and dark sections */
+    --ink: #16303d;
+
+    /* Fonts */
+    --font-display: "Instrument Serif", serif;
+    --font-body: "Inter", sans-serif;
+}
+
+/* ==========================================================
+   2. BASIC PAGE SETTINGS
+   ========================================================== */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    margin: 0;
+    background-color: var(--peach-cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+/* Headings: big, light, all-caps serif (Instrument Serif only has a regular weight) */
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.95;
+}
+
+/* Small bold caps used for labels (the poster's small text) */
+.eyebrow,
+nav a,
+.hero-top,
+.hero-note,
+.tags {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: clamp(0.78rem, 0.95vw, 1rem);
+}
+
+/* ==========================================================
+   3. TOP OF THE PAGE: header + full-screen hero
+   ========================================================== */
+.top {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh; /* newer phones: ignores the browser address bar */
+    overflow: hidden;
+    background: linear-gradient(
+        180deg,
+        var(--butter) 0%,
+        var(--peach-cream) 45%,
+        var(--blush) 75%,
+        var(--sea-glass) 100%
+    );
+}
+
+/* The sun: a soft glowing circle behind the title */
+.top::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: min(95vw, 80vh);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 183, 3, 0.95) 0%,
+        rgba(255, 122, 47, 0.9) 55%,
+        rgba(255, 122, 47, 0) 70%
+    );
+    pointer-events: none;
+}
+
+/* Header */
+.site-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px 24px;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 2.6vw, 2.8rem);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+}
+
+nav a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-underline-offset: 6px;
+}
+
+/* Hero: three rows (small labels, giant title, bottom row) */
+.hero {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 24px 28px;
+}
+
+.hero-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* The title: sized so it can never be wider than the screen.
+   Phones: three stacked, offset lines. */
+.hero-title {
+    margin: 0;
+    font-size: min(calc((100vw - 48px) / 2.8), 17vh);
+    font-size: min(calc((100vw - 48px) / 2.8), 17svh);
+    line-height: 0.9;
+}
+
+.hero-title span {
+    display: block;
+}
+
+.hero-title span:nth-child(2) {
+    padding-left: 0.6em;
+}
+
+.hero-title span:nth-child(3) {
+    padding-left: 0.1em;
+}
+
+.hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.hero-note {
+    max-width: 34ch;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Desktop and tablet: two staggered lines, "CODE IN" then "CAPTURE" */
+@media (min-width: 800px) {
+    .hero-title {
+        font-size: min(calc((100vw - 48px) / 3.6), 33vh);
+        font-size: min(calc((100vw - 48px) / 3.6), 33svh);
+    }
+
+    .hero-title span:nth-child(1),
+    .hero-title span:nth-child(2) {
+        display: inline;
+        padding-left: 0;
+    }
+
+    .hero-title span:nth-child(3) {
+        display: block;
+        padding-left: 0.9em;
+    }
+}
+
+/* ==========================================================
+   4. BUTTON
+   ========================================================== */
+.button {
+    display: inline-block;
+    padding: 14px 24px;
+    background-color: var(--orange);
+    color: var(--ink);
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+
+.button:focus-visible,
+.card-link:focus-visible,
+.contact-link:focus-visible,
+nav a:focus-visible,
+.logo:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+/* ==========================================================
+   5. SECTIONS BELOW THE HERO
+   ========================================================== */
+.section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 24px;
+}
+
+.section h2 {
+    margin: 8px 0 24px;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+}
+
+.section-intro {
+    max-width: 55ch;
+    margin: 0 0 32px;
+}
+
+/* About: heading on the left, text on the right (on wide screens) */
+.about-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.about-text p {
+    max-width: 60ch;
+    margin: 0 0 16px;
+    font-size: 1.05rem;
+}
+
+@media (min-width: 800px) {
+    .about-grid {
+        grid-template-columns: 1fr 1.4fr;
+        gap: 56px;
+    }
+}
+
+/* Cards (used for both "What I offer" and "Work") */
+.card-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+@media (min-width: 800px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    padding: 28px;
+    border-radius: 20px;
+}
+
+.card h3 {
+    margin: 0 0 12px;
+    font-size: 2rem;
+}
+
+.card p {
+    margin: 0 0 12px;
+}
+
+.card-number {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    line-height: 1;
+}
+
+.card-butter { background-color: var(--butter); }
+.card-sea    { background-color: var(--sea-glass); }
+.card-sage   { background-color: var(--sage); }
+.card-blush  { background-color: var(--blush); }
+
+.offer-note {
+    margin-top: 32px;
+    font-weight: 700;
+}
+
+/* Work cards: text on top, details at the bottom, small lift on hover */
+.work-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 260px;
+    transition: transform 0.2s;
+}
+
+.work-card:hover {
+    transform: scale(1.02);
+}
+
+.tags {
+    margin: 0 0 8px;
+}
+
+.card-link {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+/* Contact */
+.contact-link {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 6vw, 3.5rem);
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 8px;
+    overflow-wrap: anywhere;
+}
+
+/* Footer */
+.site-footer {
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.site-footer p {
+    margin: 0;
+}
